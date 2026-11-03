@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/../includes/bootstrap.php';
 $done=false;$error='';
-if(INSTALL_KEY==='CHANGE-THIS-TO-A-LONG-RANDOM-ONE-TIME-KEY'||strlen(INSTALL_KEY)<24){$error='Edit includes/config.php and set INSTALL_KEY to a random value of at least 24 characters.';}
+if(INSTALL_KEY==='REPLACE_WITH_YOUR_OWN_PRIVATE_RANDOM_KEY_24_CHARS_MIN'||strlen(INSTALL_KEY)<24){$error='Edit includes/config.php and set INSTALL_KEY to a random value of at least 24 characters.';}
 else{try{$pdo=db();
 $pdo->exec("CREATE TABLE IF NOT EXISTS admins (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, username VARCHAR(60) NOT NULL UNIQUE, password_hash VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, last_login DATETIME NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 $pdo->exec("CREATE TABLE IF NOT EXISTS orders (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, order_code VARCHAR(24) NOT NULL UNIQUE, customer_name VARCHAR(100) NOT NULL, email VARCHAR(190) NOT NULL, whatsapp VARCHAR(30) NOT NULL, service VARCHAR(80) NOT NULL, budget VARCHAR(60) NULL, deadline DATE NULL, brief TEXT NOT NULL, attachment VARCHAR(80) NULL, status VARCHAR(24) NOT NULL DEFAULT 'pending', admin_note TEXT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX idx_orders_status_created(status,created_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
