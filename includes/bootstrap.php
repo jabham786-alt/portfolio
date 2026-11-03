@@ -22,7 +22,7 @@ function text_length(string $value): int {
 function db(): PDO {
     static $pdo = null;
     if ($pdo instanceof PDO) return $pdo;
-    $bad = ['YOUR_INFINITYFREE_MYSQL_HOST', 'YOUR_DATABASE_NAME', 'YOUR_DATABASE_USERNAME', 'CHANGE_THIS_DATABASE_PASSWORD'];
+    $bad = ['YOUR_INFINITYFREE_MYSQL_HOST', 'YOUR_DATABASE_NAME', 'YOUR_DATABASE_USERNAME', 'PASTE_YOUR_INFINITYFREE_MYSQL_PASSWORD_HERE'];
     foreach ([DB_HOST, DB_NAME, DB_USER, DB_PASS] as $value) {
         if ($value === '' || in_array($value, $bad, true)) {
             throw new RuntimeException('Database is not configured. Update includes/config.php with your hosting MySQL details.');
