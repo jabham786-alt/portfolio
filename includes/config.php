@@ -1,8 +1,10 @@
 <?php
 /**
- * Hammad Graphic configuration.
- * Fill in the database details from InfinityFree Control Panel > MySQL Databases.
- * Never upload a real database password to a public Git repository.
+ * Hammad Graphic — InfinityFree configuration.
+ *
+ * Connection details below are taken from your InfinityFree screenshot.
+ * IMPORTANT: Never put your real database password or INSTALL_KEY in public GitHub.
+ * After downloading, enter both values in this file using InfinityFree File Manager.
  */
 declare(strict_types=1);
 
@@ -12,11 +14,18 @@ define('OWNER_EMAIL', 'jabham786@gmail.com');
 define('WHATSAPP_NUMBER', '923067115462');
 define('SITE_URL', '');
 
-define('DB_HOST', 'YOUR_INFINITYFREE_MYSQL_HOST');
-define('DB_NAME', 'YOUR_DATABASE_NAME');
-define('DB_USER', 'YOUR_DATABASE_USERNAME');
-define('DB_PASS', 'CHANGE_THIS_DATABASE_PASSWORD');
+/* InfinityFree > MySQL Databases */
+define('DB_HOST', 'sql108.infinityfree.com');
+define('DB_NAME', 'if0_43333038_hammadgraphic');
+define('DB_USER', 'if0_43333038');
+define('DB_PASS', 'PASTE_YOUR_INFINITYFREE_MYSQL_PASSWORD_HERE');
 
-define('INSTALL_KEY', 'CHANGE-THIS-TO-A-LONG-RANDOM-ONE-TIME-KEY');
+/*
+ * Replace this with a private random value of at least 24 characters.
+ * Do not share it or commit the edited file back to public GitHub.
+ * The admin setup page will refuse to run until you replace this placeholder.
+ */
+define('INSTALL_KEY', 'REPLACE_WITH_YOUR_OWN_PRIVATE_RANDOM_KEY_24_CHARS_MIN');
+
 define('MAX_UPLOAD_BYTES', 4 * 1024 * 1024);
 define('UPLOAD_DIRECTORY', dirname(__DIR__) . '/storage/uploads');
