@@ -65,6 +65,7 @@ $services = [
 <div class="contact-widget" id="contactWidget">
 <section class="contact-panel" id="contactPanel" aria-label="WhatsApp contact assistant" hidden>
 <div class="contact-panel-head"><div class="bot-avatar">HG</div><div><strong>Hammad Graphic</strong><span>WhatsApp contact assistant</span></div><button type="button" class="panel-close" id="panelClose" aria-label="Close contact panel">×</button></div>
+<div class="contact-order-cta"><span>Want to place a design order?</span><a href="order.php">Open the order form <b>↗</b></a></div>
 <div class="contact-messages" id="contactMessages" aria-live="polite"></div>
 <form class="contact-input" id="contactAssistantForm"><label class="sr-only" for="contactMessageInput">Your message</label><input id="contactMessageInput" type="text" maxlength="500" placeholder="Type a message…" autocomplete="off" required><button type="submit" aria-label="Send message">↑</button></form>
 <div class="contact-panel-foot">Quick contact · No AI processing or message storage</div>
