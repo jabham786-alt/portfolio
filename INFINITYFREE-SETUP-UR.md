@@ -70,3 +70,21 @@ InfinityFree پر آپ کا Database پہلے سے موجود ہے۔ اب انس
 - اپنی مقامی edited `config.php` کو Public GitHub پر واپس upload نہ کریں۔
 - InfinityFree پر Live order لینے سے پہلے ایک مکمل Test Order ضرور کریں۔
 - Free shared hosting پر 100% uptime یا ہر حالت میں بلا رکاوٹ سروس کی ضمانت نہیں دی جا سکتی۔
+
+
+## Admin Password بھول جانے پر محفوظ Reset
+
+اگر Admin اکاؤنٹ پہلے سے بنا ہوا ہے لیکن Password یاد نہیں:
+
+1. GitHub کی اسی برانچ سے `admin/reset-password.php` ڈاؤن لوڈ کریں۔
+2. اسے Live Hosting کے `htdocs/admin/` فولڈر میں عارضی طور پر اپلوڈ کریں۔
+3. صرف HTTPS کے ذریعے یہ صفحہ کھولیں: `https://YOUR-DOMAIN/admin/reset-password.php`
+4. Live `includes/config.php` میں رکھی اپنی نجی `INSTALL_KEY` درج کریں۔
+5. اپنا عین Admin Username درج کریں۔
+6. نیا مضبوط Password دو مرتبہ درج کریں (کم از کم 12 حروف)۔
+7. کامیابی کا پیغام آنے کے فوراً بعد File Manager سے `admin/reset-password.php` حذف کریں۔
+8. اب `admin/login.php` پر نئے Password سے لاگ اِن کریں۔
+
+یہ Reset فائل پرانا Password یا Database Password نہیں دکھاتی۔ یہ موجودہ Admin کا Password نیا hash بنا کر تبدیل کرتی ہے۔ اگر آپ کو نجی `INSTALL_KEY` یاد یا دستیاب نہیں تو پہلے اسے محفوظ طریقے سے اپنے Live `includes/config.php` میں دیکھیں/نیا بنائیں؛ اسے پبلک GitHub پر اپلوڈ نہ کریں۔
+
+**سکیورٹی:** INSTALL_KEY، نیا Admin Password یا Database Password کسی کو نہ بھیجیں۔ Reset کامیاب ہوتے ہی Reset فائل لازماً Live Hosting سے حذف کریں۔
