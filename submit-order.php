@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 if($_SERVER['REQUEST_METHOD']!=='POST')redirect('order.php');
 csrf_check();
-if(!empty($_POST['website']))redirect('order.php?success=1');
+if(!empty($_POST['website'])){flash('order_error','Please leave the hidden website field empty and submit the order form again.');redirect('order.php');}
 if(!empty($_SESSION['last_order_submit'])&&time()-(int)$_SESSION['last_order_submit']<30){flash('order_error','Please wait a moment before sending another request.');redirect('order.php');}
 $name=trim((string)($_POST['customer_name']??''));$email=trim((string)($_POST['email']??''));$phone=trim((string)($_POST['whatsapp']??''));$service=trim((string)($_POST['service']??''));$budget=trim((string)($_POST['budget']??''));$deadline=trim((string)($_POST['deadline']??''));$brief=trim((string)($_POST['brief']??''));
 $allowed=['Brand identity','Social media design','Print & business stationery','YouTube thumbnails','Custom creative design'];
