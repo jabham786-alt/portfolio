@@ -50,7 +50,9 @@ InfinityFree پر آپ کا Database پہلے سے موجود ہے۔ اب انس
 - آرڈر فارم: `https://YOUR-DOMAIN/order.php`
 - ایڈمن لاگ اِن: `https://YOUR-DOMAIN/admin/login.php`
 
-ایک Test Order جمع کریں، Admin Panel میں اسے کھولیں، Status کو Confirmed کریں، اور اگر فائل منسلک کی ہو تو اس کا Download بھی ٹیسٹ کریں۔
+ایک Test Order جمع کریں، پھر اس کا Reference Number دیکھیں۔ Admin Panel میں اسے Pending کے طور پر کھولیں، Status کو Confirmed اور کام مکمل ہونے پر Completed کریں۔ اگر فائل منسلک کی ہو تو اس کا Download بھی ٹیسٹ کریں۔
+
+یاد رکھیں: Chat Assistant صرف WhatsApp رابطے کی ہدایت دیتا ہے۔ آرڈر محفوظ کرنے کے لیے Home Page یا Chat Widget میں موجود **Open the order form** لنک استعمال کریں۔
 
 ## اگر مسئلہ آئے
 
