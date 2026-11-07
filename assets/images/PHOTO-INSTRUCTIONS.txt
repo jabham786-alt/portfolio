@@ -1,0 +1,6 @@
+Hammad Graphic owner portrait
+Upload your own portrait here with this exact filename:
+assets/images/hammad-ali.jpg
+
+Recommended: JPG, portrait orientation, 800 x 1000 pixels or larger.
+Do not upload a sample/placeholder image. The homepage references this path.
