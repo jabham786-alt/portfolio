@@ -31,3 +31,10 @@ CREATE TABLE zoom_requests (
  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  INDEX idx_zoom_status_date(status,created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Editable homepage content and portrait settings.
+CREATE TABLE site_settings (
+ setting_key VARCHAR(60) PRIMARY KEY,
+ setting_value TEXT NOT NULL,
+ updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
