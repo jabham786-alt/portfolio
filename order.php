@@ -21,4 +21,5 @@ $error=flash('order_error');
 <label class="honeypot" aria-hidden="true">Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
 <label class="consent-check"><input type="checkbox" name="contact_consent" value="1" required><span>I confirm these details are correct and agree to be contacted about this request.</span></label>
 <button class="button button-primary form-submit" type="submit">Send my request <span>↗</span></button><p class="form-privacy">Your brief is used only to review and manage this design request. Do not upload passwords or sensitive documents.</p></form><?php endif; ?></div></main>
-<footer class="site-footer order-footer"><div class="footer-bottom"><span>© <?=date('Y')?> Hammad Graphic</span><a href="index.php">Back to home</a><a href="admin/login.php">Admin</a></div></footer><script src="assets/js/app.js?v=1.0.0" defer></script></body></html>
+<footer class="site-footer order-footer"><div class="footer-bottom"><span>© <?=date('Y')?> Hammad Graphic</span><a href="index.php">Back to home</a><a href="admin/login.php">Admin</a></div></footer><script src="assets/js/app.js?v=1.0.0" defer></script><?php require __DIR__.'/includes/analytics-snippet.php'; ?>
+</body></html>
