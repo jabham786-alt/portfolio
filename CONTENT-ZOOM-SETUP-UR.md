@@ -1,6 +1,7 @@
 # Hammad Graphic — Portfolio & Zoom setup (Urdu)
 
 ## New features
+- Admin > Website editor: update the homepage heading, introduction, About text, contact email and upload your profile portrait.
 - Admin > Portfolio manager: add image, video, audio or external demo link.
 - New entries default to **Draft**. Draft items are private and do not appear on the public homepage.
 - Use **Publish** only after checking the title, media, description and customer permission. Published work appears in the homepage portfolio section.
@@ -20,10 +21,12 @@ Upload the full branch ZIP contents, preserving folder structure, to the documen
 - `index.php`
 - `zoom-meeting.php`
 - `admin/index.php`
+- `admin/site-editor.php`
 - `admin/portfolio.php`
 - `admin/zoom-meetings.php`
 - `database/content-migration.sql`
 - `assets/uploads/portfolio/.htaccess`
+- `assets/uploads/site/.htaccess`
 
 Also keep all existing files and folders from the repository, especially `includes`, `assets/css`, `assets/js`, `storage`, and the existing order/payment/admin files. Do not overwrite your live `includes/config.php` with a public template unless you have first preserved the correct private database password and INSTALL_KEY.
 
@@ -42,3 +45,10 @@ Also keep all existing files and folders from the repository, especially `includ
 - The Zoom workflow does not use Zoom API credentials and does not automatically create a Zoom meeting. You create the meeting in Zoom and paste its invitation URL in admin.
 - Video/audio upload depends on InfinityFree's PHP upload and storage limits. If a large file is rejected, use a compressed file or a trusted external demo link.
 - GitHub changes are not automatically deployed to InfinityFree. Upload the branch files and run the migration before testing the live site.
+
+## Website editor and profile photo
+1. Open **Website editor** from the admin dashboard.
+2. Change the homepage heading, introduction, About text or contact email.
+3. Upload a JPG, PNG or WEBP profile photo (maximum 5 MB).
+4. Save. The new portrait replaces the image slots on the homepage.
+5. Portfolio items still follow the separate Draft → Publish process.
