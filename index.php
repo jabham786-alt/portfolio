@@ -18,7 +18,7 @@ $services = [
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v=1.0.0">
-</head>
+<style>.owner-photo-frame{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);width:190px;height:235px;border:7px solid var(--bg);background:var(--surface2);overflow:hidden;display:grid;place-items:center;text-align:center;font-size:10px}.owner-photo-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.about-visual{overflow:hidden}.about-owner-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25}.about-monogram{z-index:2}@media(max-width:700px){.owner-photo-frame{width:145px;height:185px}}</style></head>
 <body>
 <header class="site-header">
 <a class="brand" href="index.php"><span class="brand-mark">H<span>G</span></span><span class="brand-name">HAMMAD<span>GRAPHIC</span></span></a>
@@ -35,7 +35,7 @@ $services = [
 <div class="hero-actions"><a class="button button-primary" href="order.php">Start a project <span>↗</span></a><a class="text-link" href="#work">Explore selected work <span>↓</span></a></div>
 <div class="hero-meta"><div><strong>HAMMAD ALI</strong><span>Graphic Designer</span></div><div class="meta-divider"></div><div><strong>BASED IN PAKISTAN</strong><span>Working with ideas everywhere</span></div></div>
 </div>
-<div class="hero-art" aria-label="Abstract graphic design composition">
+<div class="hero-art" aria-label="Hammad Ali graphic designer"><div class="owner-photo-frame"><img src="assets/images/hammad-ali.jpg" alt="Hammad Ali, graphic designer"><span>ADD YOUR PHOTO<br>assets/images/hammad-ali.jpg</span></div>
 <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
 <div class="art-panel art-panel-back"><span>MAKE IT</span><b>MATTER.</b><i>VISUAL / 001</i></div>
 <div class="art-panel art-panel-front"><div class="art-topline"><span>HG®</span><span>CREATIVE STUDIO</span></div><div class="art-sun"></div><div class="art-type">IDEAS<br><em>INTO</em><br>IMPACT.</div><div class="art-bottomline"><span>IDENTITY · DIGITAL · PRINT</span><span>2026</span></div></div>
@@ -56,8 +56,8 @@ $services = [
 </div>
 </div></section>
 <section class="section-wrap about-section section-block" id="about">
-<div class="about-visual"><div class="about-monogram">H<span>G</span></div><div class="about-note">GOOD IDEAS<br>DESERVE<br>GOOD DESIGN.</div><div class="about-orbit"></div></div>
-<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro">I’m a graphic designer behind Hammad Graphic. I create visual work for businesses, creators and growing brands — with a focus on clarity, personality and the details that make a design feel right.</p><p>Whether you need a new identity, a social media set or a single standout graphic, tell me what you’re building and we can shape the right direction together.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>Print design</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
+<div class="about-visual"><img class="about-owner-photo" src="assets/images/hammad-ali.jpg" alt="Hammad Ali — Graphic Designer"><div class="about-monogram">H<span>G</span></div><div class="about-note">GOOD IDEAS<br>DESERVE<br>GOOD DESIGN.</div><div class="about-orbit"></div></div>
+<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro">I’m Hammad Ali, the graphic designer and founder behind Hammad Graphic. I create visual work for businesses, creators and growing brands — with a focus on clarity, personality and the details that make a design feel right.</p><p>Whether you need a new identity, a social media set or a single standout graphic, tell me what you’re building and we can shape the right direction together.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>Print design</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
 </section>
 <section class="contact-band" id="contact"><div class="section-wrap contact-inner"><div><div class="eyebrow">HAVE SOMETHING IN MIND?</div><h2>Let’s make it<br><em>happen.</em></h2></div><div class="contact-side"><p>Share a little about your idea. I’ll review the brief and follow up to discuss the next step.</p><a class="button button-light" href="order.php">Request a design order <span>↗</span></a><a class="contact-email" href="mailto:jabham786@gmail.com">jabham786@gmail.com</a></div></div></section>
 </main>
