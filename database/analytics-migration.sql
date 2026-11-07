@@ -12,10 +12,5 @@ CREATE TABLE IF NOT EXISTS analytics_events (
  INDEX idx_analytics_page_date (page_path,created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- site_settings is normally created by content-migration.sql. This keeps the
--- analytics setup compatible if that migration has not yet been run.
-CREATE TABLE IF NOT EXISTS site_settings (
- setting_key VARCHAR(60) PRIMARY KEY,
- setting_value TEXT NOT NULL,
- updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Requires site_settings from database/content-migration.sql.
+-- Run content-migration.sql first, then run this file once.
