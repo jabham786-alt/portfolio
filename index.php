@@ -86,4 +86,5 @@ $services = [
 </section><button type="button" class="contact-launcher" id="contactLauncher" aria-expanded="false" aria-controls="contactPanel"><span class="launcher-symbol">✳</span><span>Need help?</span></button>
 </div>
 <script src="assets/js/app.js?v=1.0.0" defer></script><script src="assets/js/contact-assistant.js?v=1.0.0" defer></script>
+<?php require __DIR__.'/includes/analytics-snippet.php'; ?>
 </body></html>
