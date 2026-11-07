@@ -47,4 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <label>Transaction / reference ID<input name="payment_reference" maxlength="120" required></label>
 <label>Upload receipt (JPG, PNG, WEBP or PDF; max 4 MB)<input type="file" name="proof" accept=".jpg,.jpeg,.png,.webp,.pdf" required></label>
 <button class="button button-primary" type="submit">Submit payment details</button></form><?php endif; ?>
-<p class="admin-footnote">Do not send your PIN, MPIN, password or OTP. This page does not collect banking credentials.</p></section></main></body></html>
+<p class="admin-footnote">Do not send your PIN, MPIN, password or OTP. This page does not collect banking credentials.</p></section></main><?php require __DIR__.'/includes/analytics-snippet.php'; ?>
+</body></html>
