@@ -1,5 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/bootstrap.php';
+$site = [];
+try { $site = db()->query('SELECT setting_key,setting_value FROM site_settings')->fetchAll(PDO::FETCH_KEY_PAIR); } catch (Throwable $ignored) {}
+$heroHeading = (string)($site['hero_heading'] ?? "Good design\\nmakes you look twice.");
+$heroText = (string)($site['hero_text'] ?? "Thoughtful visuals for brands, businesses and people with something to say. Let’s turn your next idea into a design that feels unmistakably yours.");
+$aboutText = (string)($site['about_text'] ?? "I’m Hammad Ali, the graphic designer and founder behind Hammad Graphic. I create visual work for businesses, creators and growing brands — with a focus on clarity, personality and the details that make a design feel right.");
+$contactEmail = (string)($site['contact_email'] ?? 'jabham786@gmail.com');
+$portrait = !empty($site['portrait_path']) ? 'assets/uploads/site/'.rawurlencode((string)$site['portrait_path']) : 'assets/images/hammad-ali.jpg';
 $publishedWork = [];
 try { $publishedWork = db()->query("SELECT * FROM portfolio_items WHERE status='published' ORDER BY published_at DESC, id DESC LIMIT 30")->fetchAll(); } catch (Throwable $ignored) { /* migration not installed yet */ }
 $services = [
@@ -32,12 +39,12 @@ $services = [
 <section class="hero section-wrap">
 <div class="hero-copy">
 <div class="eyebrow"><span class="eyebrow-line"></span> INDEPENDENT GRAPHIC DESIGN STUDIO</div>
-<h1>Good design<br>makes you <em>look twice.</em></h1>
-<p class="hero-lead">Thoughtful visuals for brands, businesses and people with something to say. Let’s turn your next idea into a design that feels unmistakably yours.</p>
+<h1><?= nl2br(e($heroHeading)) ?></h1>
+<p class="hero-lead"><?= e($heroText) ?></p>
 <div class="hero-actions"><a class="button button-primary" href="order.php">Start a project <span>↗</span></a><a class="text-link" href="#work">Explore selected work <span>↓</span></a></div>
 <div class="hero-meta"><div><strong>HAMMAD ALI</strong><span>Graphic Designer</span></div><div class="meta-divider"></div><div><strong>BASED IN PAKISTAN</strong><span>Working with ideas everywhere</span></div></div>
 </div>
-<div class="hero-art" aria-label="Hammad Ali graphic designer"><div class="owner-photo-frame"><img src="assets/images/hammad-ali.jpg" alt="Hammad Ali, graphic designer"><span>ADD YOUR PHOTO<br>assets/images/hammad-ali.jpg</span></div>
+<div class="hero-art" aria-label="Hammad Ali graphic designer"><div class="owner-photo-frame"><img src="<?= e($portrait) ?>" alt="Hammad Ali, graphic designer"><span>ADD YOUR PHOTO<br>assets/images/hammad-ali.jpg</span></div>
 <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
 <div class="art-panel art-panel-back"><span>MAKE IT</span><b>MATTER.</b><i>VISUAL / 001</i></div>
 <div class="art-panel art-panel-front"><div class="art-topline"><span>HG®</span><span>CREATIVE STUDIO</span></div><div class="art-sun"></div><div class="art-type">IDEAS<br><em>INTO</em><br>IMPACT.</div><div class="art-bottomline"><span>IDENTITY · DIGITAL · PRINT</span><span>2026</span></div></div>
@@ -64,9 +71,9 @@ $services = [
 <section class="meeting-band" id="meetings"><div class="section-wrap meeting-inner"><div><div class="eyebrow">LET’S DISCUSS YOUR BRIEF</div><h2>Need a project<br><em>consultation?</em></h2><p>Want to explain your idea, review design references or discuss a project face to face? Send a Zoom meeting request with your preferred time.</p><a class="button button-primary" href="zoom-meeting.php">Request a Zoom meeting <span>↗</span></a></div><div class="meeting-card"><div class="meeting-icon">↗</div><strong>ZOOM PROJECT CALL</strong><span>Request a time · Get confirmation · Receive your private meeting link</span><small>Meetings are confirmed manually after review.</small></div></div></section>
 <section class="section-wrap about-section section-block" id="about">
 <div class="about-visual"><img class="about-owner-photo" src="assets/images/hammad-ali.jpg" alt="Hammad Ali — Graphic Designer"><div class="about-monogram">H<span>G</span></div><div class="about-note">GOOD IDEAS<br>DESERVE<br>GOOD DESIGN.</div><div class="about-orbit"></div></div>
-<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro">I’m Hammad Ali, the graphic designer and founder behind Hammad Graphic. I create visual work for businesses, creators and growing brands — with a focus on clarity, personality and the details that make a design feel right.</p><p>Whether you need a new identity, a social media set or a single standout graphic, tell me what you’re building and we can shape the right direction together.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>Print design</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
+<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro"><?= e($aboutText) ?></p><p>Whether you need a new identity, a social media set or a single standout graphic, tell me what you’re building and we can shape the right direction together.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>Print design</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
 </section>
-<section class="contact-band" id="contact"><div class="section-wrap contact-inner"><div><div class="eyebrow">HAVE SOMETHING IN MIND?</div><h2>Let’s make it<br><em>happen.</em></h2></div><div class="contact-side"><p>Share a little about your idea. I’ll review the brief and follow up to discuss the next step.</p><a class="button button-light" href="order.php">Request a design order <span>↗</span></a><a class="contact-email" href="mailto:jabham786@gmail.com">jabham786@gmail.com</a></div></div></section>
+<section class="contact-band" id="contact"><div class="section-wrap contact-inner"><div><div class="eyebrow">HAVE SOMETHING IN MIND?</div><h2>Let’s make it<br><em>happen.</em></h2></div><div class="contact-side"><p>Share a little about your idea. I’ll review the brief and follow up to discuss the next step.</p><a class="button button-light" href="order.php">Request a design order <span>↗</span></a><a class="contact-email" href="mailto:<?= e($contactEmail) ?>"><?= e($contactEmail)</a></div></div></section>
 </main>
 <footer class="site-footer"><div class="footer-top"><a class="brand" href="index.php"><span class="brand-mark">H<span>G</span></span><span class="brand-name">HAMMAD<span>GRAPHIC</span></span></a><span>Independent design studio · Pakistan</span><a href="<?= e(whatsapp_url('Hello Hammad, I would like to discuss a design project.')) ?>" target="_blank" rel="noopener">WhatsApp ↗</a></div><div class="footer-bottom"><span>© <?= date('Y') ?> Hammad Graphic. All rights reserved.</span><span>Made with intention.</span><a href="admin/login.php">Admin</a></div></footer>
 <div class="contact-widget" id="contactWidget">
