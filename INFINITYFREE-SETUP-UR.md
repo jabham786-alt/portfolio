@@ -88,3 +88,26 @@ InfinityFree پر آپ کا Database پہلے سے موجود ہے۔ اب انس
 یہ Reset فائل پرانا Password یا Database Password نہیں دکھاتی۔ یہ موجودہ Admin کا Password نیا hash بنا کر تبدیل کرتی ہے۔ اگر آپ کو نجی `INSTALL_KEY` یاد یا دستیاب نہیں تو پہلے اسے محفوظ طریقے سے اپنے Live `includes/config.php` میں دیکھیں/نیا بنائیں؛ اسے پبلک GitHub پر اپلوڈ نہ کریں۔
 
 **سکیورٹی:** INSTALL_KEY، نیا Admin Password یا Database Password کسی کو نہ بھیجیں۔ Reset کامیاب ہوتے ہی Reset فائل لازماً Live Hosting سے حذف کریں۔
+
+
+## JazzCash / Easypaisa Manual Payment Setup
+
+یہ خودکار gateway نہیں ہے۔ کسٹمر آپ کے wallet نمبر پر رقم بھیجے گا، Transaction ID اور رسید جمع کرے گا، اور آپ خود رقم وصول ہونے کی تصدیق کے بعد Paid کریں گے۔
+
+1. phpMyAdmin میں اپنی Hammad Graphic database منتخب کریں۔
+2. `database/payment-migration.sql` ایک مرتبہ Import کریں۔ اسے دوبارہ نہ چلائیں، ورنہ duplicate-column error آئے گا۔
+3. یہ فائلیں اپلوڈ کریں: `payment.php`, `admin/payment-settings.php`, `admin/quote.php`, `admin/payment-proof.php` اور تازہ `admin/index.php`, `admin/order.php`۔
+4. Admin login کریں، Dashboard میں Payment settings کھولیں اور صرف وصولی والے JazzCash/Easypaisa نمبر اور account title محفوظ کریں۔
+5. Order کھولیں، `Set quote / verify payment` منتخب کریں، PKR رقم مقرر کرکے Payment Link کسٹمر کو بھیجیں۔
+6. کسٹمر wallet منتخب کرکے رقم بھیجے، Transaction ID اور رسید جمع کرے۔
+7. Admin کے Quote/Payment صفحے میں رسید دیکھیں۔ صرف اپنے wallet میں اصل رقم آنے کی تصدیق کے بعد `Confirm money received` منتخب کریں۔ تبھی Payment Status Paid ہوگا۔
+
+**اہم:** Customer کی screenshot یا Transaction ID اکیلے payment proof نہیں۔ اپنے JazzCash/Easypaisa balance/statement میں رقم آنے کی تصدیق کریں۔ PIN, MPIN, OTP یا wallet password کبھی ویب سائٹ میں درج نہ کریں۔
+
+## Homepage Owner Photo
+
+اپنی تصویر اس جگہ اپلوڈ کریں:
+
+`htdocs/assets/images/hammad-ali.jpg`
+
+فائل کا نام بالکل `hammad-ali.jpg` رکھیں۔ بہتر تصویر عمودی portrait، کم از کم 800×1000 pixels ہو۔ Homepage خود اسی path سے تصویر دکھائے گا۔ اگر آپ کی تصویر ابھی تیار نہیں تو placeholder text نظر آئے گا۔
