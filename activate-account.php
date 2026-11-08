@@ -2,6 +2,8 @@
 declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Referrer-Policy: no-referrer');
 $token = trim((string)($_GET['token'] ?? $_POST['token'] ?? ''));
 $error = '';
 $valid = false;
