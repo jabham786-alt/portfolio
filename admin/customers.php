@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (Throwable $e) {
             if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) $pdo->rollBack();
             error_log('Admin customer approval action failed: ' . $e->getMessage());
-            $error = $e instanceof RuntimeException ? $e->getMessage() : 'Could not update this customer. Please try again.';
+            $error = ($e instanceof RuntimeException && !($e instanceof PDOException)) ? $e->getMessage() : 'Could not update this customer. Please try again.';
         }
     }
 }
