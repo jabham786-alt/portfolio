@@ -56,3 +56,23 @@ PHP + MySQL agency website for Hammad Ali. Built for simple shared hosting such 
 - Use HTTPS and a unique strong admin password.
 - Uploaded files are stored under storage/uploads with random names and cannot be opened directly from the public web.
 - Back up the database and customer attachments regularly.
+
+## Customer accounts (feature branch)
+
+This feature is developed on `feature/customer-accounts-payments`; it is not merged into the main agency branch and has not been deployed to InfinityFree.
+
+1. Back up the live database and website files.
+2. Review `CUSTOMER-ACCOUNTS-PAYMENTS-PLAN-UR.md` and `SAFEPAY-SETUP-UR.md`.
+3. Run `database/customer-accounts-payments-migration.sql` exactly once in phpMyAdmin after selecting the correct live database. Do not rerun it after success; the `ALTER TABLE orders` statement is a one-time change.
+4. Upload the new customer PHP files and the updated `index.php`, `order.php`, and `submit-order.php` only after a full backup.
+5. Keep the live `includes/config.php` unchanged. The repository copy is a template and contains placeholder database settings; do not overwrite the working InfinityFree config.
+6. Customer registration currently collects email and mobile but does not verify ownership by email link or SMS OTP. Do not use either as a verified recovery channel until a delivery provider is configured.
+7. New orders require a logged-in customer and are linked to `orders.customer_id`. Existing historical orders remain unassigned; do not auto-link them by matching email without verifying ownership.
+8. Safepay credentials are not present in this repository. Start with the Safepay sandbox account and follow `SAFEPAY-SETUP-UR.md`. Never commit merchant secrets.
+9. Do not activate live payment confirmation on InfinityFree Free Hosting: third-party webhook requests are blocked. A verified webhook relay or a webhook-capable payment endpoint is required before production payment can safely mark orders as paid.
+
+Current customer routes after the database migration and file deployment:
+- `/register.php`
+- `/login.php`
+- `/customer/index.php`
+- `/logout.php` (POST only)
