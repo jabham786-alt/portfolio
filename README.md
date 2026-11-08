@@ -56,3 +56,19 @@ PHP + MySQL agency website for Hammad Ali. Built for simple shared hosting such 
 - Use HTTPS and a unique strong admin password.
 - Uploaded files are stored under storage/uploads with random names and cannot be opened directly from the public web.
 - Back up the database and customer attachments regularly.
+
+## Customer accounts (feature branch)
+
+The customer account feature is developed on `feature/customer-accounts-payments`; it is not merged into the production branch and has not been deployed to InfinityFree.
+
+1. Back up the live website files and database.
+2. Confirm `database/customer-accounts-payments-migration.sql` has been applied once. If not, apply it first.
+3. Run `database/customer-manual-approval-migration.sql` once in phpMyAdmin. It changes new registrations to admin approval and creates the one-time activation token table. Do not rerun it after successful completion.
+4. Upload the branch's changed/new PHP files to their matching paths. Do not overwrite the live `includes/config.php`; preserve the live database credentials and INSTALL_KEY.
+5. Set the live `SITE_URL` constant in `includes/config.php` to the canonical HTTPS domain.
+6. Customers register at `/register.php`; they remain pending until admin approval.
+7. Admin signs in at `/admin/login.php` and manages approvals at `/admin/customers.php`. Approving creates a one-use link valid for 48 hours. The admin manually sends it via WhatsApp; no API or automatic sending is used.
+8. Customer activates at `/activate-account.php`, then signs in at `/login.php` and uses `/customer/index.php`.
+9. Existing active accounts remain active. Existing historical orders remain unassigned unless safely linked after verifying ownership.
+
+Payment integration remains a separate foundation. Do not mark a payment paid from a browser redirect or screenshot. InfinityFree Free Hosting blocks inbound third-party webhook callbacks; verified payment confirmation needs a trusted webhook relay or webhook-capable payment endpoint.
