@@ -70,10 +70,10 @@ function wa_send_registration_otp(string $to, string $otp): void {
 function customer_issue_whatsapp_otp(int $customerId, string $mobile): void {
     $pdo = db();
     $to = wa_normalize_mobile($mobile);
-    $check = $pdo->prepare('SELECT sent_at FROM customer_registration_otps WHERE customer_id=? LIMIT 1');
+    $check = $pdo->prepare('SELECT (sent_at > DATE_SUB(NOW(), INTERVAL 60 SECOND)) AS recently_sent FROM customer_registration_otps WHERE customer_id=? LIMIT 1');
     $check->execute([$customerId]);
     $previous = $check->fetch();
-    if ($previous && strtotime((string)$previous['sent_at']) > time() - 60) {
+    if ($previous && (int)$previous['recently_sent'] === 1) {
         throw new RuntimeException('Please wait 60 seconds before requesting another code.');
     }
 
