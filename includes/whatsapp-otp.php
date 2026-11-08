@@ -1,7 +1,8 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/whatsapp-config.php';
+$waConfigFile = __DIR__ . '/whatsapp-config.php';
+if (is_file($waConfigFile)) require_once $waConfigFile;
 
 /** Convert Pakistan local mobile formats to WhatsApp international digits. */
 function wa_normalize_mobile(string $mobile): string {
