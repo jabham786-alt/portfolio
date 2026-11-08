@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo = db();
             $pdo->beginTransaction();
-            $stmt = $pdo->prepare('SELECT otp_hash, expires_at, attempts FROM customer_registration_otps WHERE customer_id=? FOR UPDATE');
+            $stmt = $pdo->prepare('SELECT otp_hash, (expires_at > NOW()) AS is_valid, attempts FROM customer_registration_otps WHERE customer_id=? FOR UPDATE');
             $stmt->execute([$customerId]);
             $record = $stmt->fetch();
-            if (!$record || strtotime($record['expires_at']) < time()) {
+            if (!$record || (int)$record['is_valid'] !== 1) {
                 $pdo->rollBack();
                 $error = 'Your code has expired. Request a new code.';
             } elseif ((int)$record['attempts'] >= 5) {
