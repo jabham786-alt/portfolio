@@ -4,7 +4,7 @@
 - A new customer registers with name, email, WhatsApp number, username and password.
 - The customer record remains `pending_verification` until the 6-digit WhatsApp code is entered.
 - OTP is valid for 5 minutes, can be used once, and is stored only as a password hash.
-- Maximum 5 wrong attempts per code; resend is limited to once per 60 seconds.
+- Maximum 5 wrong attempts per code; resend is limited to once per 60 seconds and 5 sends per hour.
 - Only an `active` customer can log in.
 - This uses Meta WhatsApp Cloud API outbound HTTPS. It does not need a webhook callback.
 
