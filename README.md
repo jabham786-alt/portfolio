@@ -59,20 +59,16 @@ PHP + MySQL agency website for Hammad Ali. Built for simple shared hosting such 
 
 ## Customer accounts (feature branch)
 
-This feature is developed on `feature/customer-accounts-payments`; it is not merged into the main agency branch and has not been deployed to InfinityFree.
+The customer account feature is developed on `feature/customer-accounts-payments`; it is not merged into the production branch and has not been deployed to InfinityFree.
 
-1. Back up the live database and website files.
-2. Review `CUSTOMER-ACCOUNTS-PAYMENTS-PLAN-UR.md` and `SAFEPAY-SETUP-UR.md`.
-3. Run `database/customer-accounts-payments-migration.sql` exactly once in phpMyAdmin after selecting the correct live database. Do not rerun it after success; the `ALTER TABLE orders` statement is a one-time change.
-4. Upload the new customer PHP files and the updated `index.php`, `order.php`, and `submit-order.php` only after a full backup.
-5. Keep the live `includes/config.php` unchanged. The repository copy is a template and contains placeholder database settings; do not overwrite the working InfinityFree config.
-6. Customer registration currently collects email and mobile but does not verify ownership by email link or SMS OTP. Do not use either as a verified recovery channel until a delivery provider is configured.
-7. New orders require a logged-in customer and are linked to `orders.customer_id`. Existing historical orders remain unassigned; do not auto-link them by matching email without verifying ownership.
-8. Safepay credentials are not present in this repository. Start with the Safepay sandbox account and follow `SAFEPAY-SETUP-UR.md`. Never commit merchant secrets.
-9. Do not activate live payment confirmation on InfinityFree Free Hosting: third-party webhook requests are blocked. A verified webhook relay or a webhook-capable payment endpoint is required before production payment can safely mark orders as paid.
+1. Back up the live website files and database.
+2. Confirm `database/customer-accounts-payments-migration.sql` has been applied once. If not, apply it first.
+3. Run `database/customer-manual-approval-migration.sql` once in phpMyAdmin. It changes new registrations to admin approval and creates the one-time activation token table. Do not rerun it after successful completion.
+4. Upload the branch's changed/new PHP files to their matching paths. Do not overwrite the live `includes/config.php`; preserve the live database credentials and INSTALL_KEY.
+5. Set the live `SITE_URL` constant in `includes/config.php` to the canonical HTTPS domain.
+6. Customers register at `/register.php`; they remain pending until admin approval.
+7. Admin signs in at `/admin/login.php` and manages approvals at `/admin/customers.php`. Approving creates a one-use link valid for 48 hours. The admin manually sends it via WhatsApp; no API or automatic sending is used.
+8. Customer activates at `/activate-account.php`, then signs in at `/login.php` and uses `/customer/index.php`.
+9. Existing active accounts remain active. Existing historical orders remain unassigned unless safely linked after verifying ownership.
 
-Current customer routes after the database migration and file deployment:
-- `/register.php`
-- `/login.php`
-- `/customer/index.php`
-- `/logout.php` (POST only)
+Payment integration remains a separate foundation. Do not mark a payment paid from a browser redirect or screenshot. InfinityFree Free Hosting blocks inbound third-party webhook callbacks; verified payment confirmation needs a trusted webhook relay or webhook-capable payment endpoint.
