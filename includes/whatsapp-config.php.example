@@ -1,0 +1,12 @@
+<?php
+declare(strict_types=1);
+
+/*
+ * Copy this file to includes/whatsapp-config.php on the HOST only.
+ * Never commit real values to GitHub or send them in chat.
+ */
+define('WA_GRAPH_VERSION', 'v23.0'); // Replace with a currently supported Graph API version from Meta.
+define('WA_PHONE_NUMBER_ID', 'YOUR_PHONE_NUMBER_ID');
+define('WA_ACCESS_TOKEN', 'YOUR_LONG_LIVED_SYSTEM_USER_ACCESS_TOKEN');
+define('WA_OTP_TEMPLATE', 'hammad_graphic_registration_otp');
+define('WA_OTP_LANGUAGE', 'en_US');
