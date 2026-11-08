@@ -89,3 +89,13 @@ CREATE TABLE IF NOT EXISTS payment_webhook_events (
     UNIQUE KEY uq_provider_webhook_event (provider, provider_event_id),
     KEY idx_webhook_processed_created (processed_at, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS customer_login_attempts (
+    identity_hash CHAR(64) NOT NULL,
+    ip_hash CHAR(64) NOT NULL,
+    failed_attempts SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    window_started_at DATETIME NOT NULL,
+    blocked_until DATETIME NULL,
+    PRIMARY KEY (identity_hash, ip_hash),
+    KEY idx_customer_login_blocked (blocked_until)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
