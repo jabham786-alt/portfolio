@@ -56,3 +56,6 @@ Makefile
 # Private payment credentials — never commit
 /includes/safepay-secrets.php
 /includes/safepay-secrets.local.php
+
+# WhatsApp Cloud API credentials — keep only on hosting, never in GitHub
+/includes/whatsapp-config.php
