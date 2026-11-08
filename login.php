@@ -14,19 +14,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($identity === '' || $password === '') $error = 'Enter your username/email and password.';
     else {
         try {
-            $stmt = db()->prepare('SELECT id,password_hash,account_status FROM customers WHERE username = ? OR email = ? LIMIT 1');
+            $pdo = db();
+            $ip = (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+            $key = defined('INSTALL_KEY') ? INSTALL_KEY : SITE_NAME;
+            $identityHash = hash_hmac('sha256', strtolower($identity), $key);
+            $ipHash = hash_hmac('sha256', $ip, $key);
+            $limit = $pdo->prepare('SELECT failed_attempts, blocked_until, window_started_at FROM customer_login_attempts WHERE identity_hash=? AND ip_hash=? LIMIT 1');
+            $limit->execute([$identityHash, $ipHash]);
+            $attempt = $limit->fetch();
+            if ($attempt && $attempt['blocked_until'] && strtotime($attempt['blocked_until']) > time()) {
+                $error = 'Too many unsuccessful attempts. Please wait 15 minutes and try again.';
+            } else {
+            $stmt = $pdo->prepare('SELECT id,password_hash,account_status FROM customers WHERE username = ? OR email = ? LIMIT 1');
             $stmt->execute([$identity, strtolower($identity)]);
             $customer = $stmt->fetch();
             if ($customer && $customer['account_status'] === 'active' && password_verify($password, $customer['password_hash'])) {
                 if (password_needs_rehash($customer['password_hash'], PASSWORD_DEFAULT)) {
-                    $update = db()->prepare('UPDATE customers SET password_hash=? WHERE id=?');
+                    $update = $pdo->prepare('UPDATE customers SET password_hash=? WHERE id=?');
                     $update->execute([password_hash($password, PASSWORD_DEFAULT),(int)$customer['id']]);
                 }
+                $clear = $pdo->prepare('DELETE FROM customer_login_attempts WHERE identity_hash=? AND ip_hash=?');
+                $clear->execute([$identityHash,$ipHash]);
                 customer_login((int)$customer['id']);
                 redirect($next);
             }
+            $record = $pdo->prepare("INSERT INTO customer_login_attempts (identity_hash,ip_hash,failed_attempts,window_started_at,blocked_until) VALUES (?,?,1,NOW(),NULL) ON DUPLICATE KEY UPDATE failed_attempts=IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),1,failed_attempts+1), window_started_at=IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),NOW(),window_started_at), blocked_until=IF(IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),1,failed_attempts+1)>=8,DATE_ADD(NOW(), INTERVAL 15 MINUTE),NULL)");
+            $record->execute([$identityHash,$ipHash]);
             usleep(350000);
             $error = 'Login details are incorrect or the account is not active.';
+            }
+
         } catch (Throwable $e) {
             error_log('Customer login error: '.$e->getMessage());
             $error = 'Login is temporarily unavailable. Please try again later.';
