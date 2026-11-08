@@ -70,16 +70,19 @@ function wa_send_registration_otp(string $to, string $otp): void {
 function customer_issue_whatsapp_otp(int $customerId, string $mobile): void {
     $pdo = db();
     $to = wa_normalize_mobile($mobile);
-    $check = $pdo->prepare('SELECT (sent_at > DATE_SUB(NOW(), INTERVAL 60 SECOND)) AS recently_sent FROM customer_registration_otps WHERE customer_id=? LIMIT 1');
+    $check = $pdo->prepare('SELECT (sent_at > DATE_SUB(NOW(), INTERVAL 60 SECOND)) AS recently_sent, (send_window_started_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS in_hour_window, send_count FROM customer_registration_otps WHERE customer_id=? LIMIT 1');
     $check->execute([$customerId]);
     $previous = $check->fetch();
     if ($previous && (int)$previous['recently_sent'] === 1) {
         throw new RuntimeException('Please wait 60 seconds before requesting another code.');
     }
+    if ($previous && (int)$previous['in_hour_window'] === 1 && (int)$previous['send_count'] >= 5) {
+        throw new RuntimeException('You have reached the hourly OTP limit. Please try again later.');
+    }
 
     $otp = (string)random_int(100000, 999999);
     $hash = password_hash($otp, PASSWORD_DEFAULT);
-    $save = $pdo->prepare('INSERT INTO customer_registration_otps (customer_id, otp_hash, expires_at, attempts, sent_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0, NOW()) ON DUPLICATE KEY UPDATE otp_hash=VALUES(otp_hash), expires_at=VALUES(expires_at), attempts=0, sent_at=NOW()');
+    $save = $pdo->prepare('INSERT INTO customer_registration_otps (customer_id, otp_hash, expires_at, attempts, send_count, send_window_started_at, sent_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0, 1, NOW(), NOW()) ON DUPLICATE KEY UPDATE otp_hash=VALUES(otp_hash), expires_at=VALUES(expires_at), attempts=0, send_count=IF(send_window_started_at < DATE_SUB(NOW(), INTERVAL 1 HOUR), 1, send_count+1), send_window_started_at=IF(send_window_started_at < DATE_SUB(NOW(), INTERVAL 1 HOUR), NOW(), send_window_started_at), sent_at=NOW()');
     $save->execute([$customerId, $hash]);
 
     try {
