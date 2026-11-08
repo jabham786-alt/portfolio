@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS customer_registration_otps (
     otp_hash VARCHAR(255) NOT NULL,
     expires_at DATETIME NOT NULL,
     attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
+    send_count TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    send_window_started_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_registration_otp_customer
