@@ -28,7 +28,6 @@ function customer_require_login(): array {
 function customer_login(int $customerId): void {
     session_regenerate_id(true);
     $_SESSION['customer_id'] = $customerId;
-    unset($_SESSION['admin_id']);
     $stmt = db()->prepare('UPDATE customers SET last_login_at = NOW() WHERE id = ?');
     $stmt->execute([$customerId]);
 }
