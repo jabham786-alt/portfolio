@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
-if (customer_current()) redirect('customer/index.php');
+if (customer_current()) redirect('home.php');
 $error = '';
 $notice = flash('customer_notice');
 $old = $_SESSION['customer_old'] ?? [];
