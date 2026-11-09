@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $valid) {
             $consume->execute([(int)$row['id']]);
             $pdo->commit();
             customer_login((int)$row['customer_id']);
-            redirect('customer/index.php?welcome=1');
+            redirect('home.php');
         }
     } catch (Throwable $e) {
         if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) $pdo->rollBack();
