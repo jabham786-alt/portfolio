@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
 
 // Keep the original portfolio page behind the customer sign-in gate.
-if (!customer_current()) {
+if (empty($_SESSION['customer_id']) || !customer_current()) {
     redirect('welcome.php');
 }
 ?>
