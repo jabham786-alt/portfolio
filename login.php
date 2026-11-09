@@ -2,11 +2,9 @@
 declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
-if (customer_current()) redirect('customer/index.php');
+if (customer_current()) redirect('home.php');
 $error = flash('customer_error');
-$next = (string)($_GET['next'] ?? $_POST['next'] ?? 'customer/index.php');
-$allowedNext = ['customer/index.php','customer/orders.php','order.php'];
-if (!in_array($next, $allowedNext, true)) $next = 'customer/index.php';
+$next = 'home.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $identity = trim((string)($_POST['identity'] ?? ''));
@@ -41,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $clear = $pdo->prepare('DELETE FROM customer_login_attempts WHERE identity_hash=? AND ip_hash=?');
                         $clear->execute([$identityHash,$ipHash]);
                         customer_login((int)$customer['id']);
-                        redirect($next);
+                        redirect('home.php');
                     }
                 } else {
                     $record = $pdo->prepare("INSERT INTO customer_login_attempts (identity_hash,ip_hash,failed_attempts,window_started_at,blocked_until) VALUES (?,?,1,NOW(),NULL) ON DUPLICATE KEY UPDATE failed_attempts=IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),1,failed_attempts+1), window_started_at=IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),NOW(),window_started_at), blocked_until=IF(IF(window_started_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE),1,failed_attempts+1)>=8,DATE_ADD(NOW(), INTERVAL 15 MINUTE),NULL)");
