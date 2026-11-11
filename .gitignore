@@ -52,3 +52,7 @@ m4/lt~obsolete.m4
 # can automatically generate from config.status script
 # (which is called by configure script))
 Makefile
+
+# Private payment credentials — never commit
+/includes/safepay-secrets.php
+/includes/safepay-secrets.local.php
