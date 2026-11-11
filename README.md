@@ -72,3 +72,18 @@ The customer account feature is developed on `feature/customer-accounts-payments
 9. Existing active accounts remain active. Existing historical orders remain unassigned unless safely linked after verifying ownership.
 
 Payment integration remains a separate foundation. Do not mark a payment paid from a browser redirect or screenshot. InfinityFree Free Hosting blocks inbound third-party webhook callbacks; verified payment confirmation needs a trusted webhook relay or webhook-capable payment endpoint.
+
+
+## Professional customer app redesign
+
+This work is being developed on `redesign/modern-dark-light-blog`. It is separate from the production branch and is not deployed to InfinityFree.
+
+- Customers must complete registration, admin approval and manual WhatsApp activation before signing in.
+- Active customers land on `home.php`, the responsive studio app with a three-slide hero, service cards, published portfolio gallery and customer navigation.
+- Service links open `order.php?service=...`; the order form preselects the chosen service.
+- Dark / light appearance is shared across the customer app and saved in the browser.
+- Customer order history remains available at `customer/index.php`.
+- The Design Journal uses `blog.php` and `blog-post.php`; administrators manage articles at `admin/blog.php`.
+- Before enabling the blog, back up the database and run `migrations/001_create_blog_posts.sql` once in phpMyAdmin. This migration only creates the new `blog_posts` table; it does not drop or recreate existing customer, order or payment tables.
+- Do not replace the live `includes/config.php` with a GitHub copy. Keep hosting credentials and INSTALL_KEY private.
+- Test registration, approval, one-time WhatsApp activation, customer login, theme switching, slideshow, every service-to-order path, portfolio media, blog publishing and order submission on a staging copy before deployment.
