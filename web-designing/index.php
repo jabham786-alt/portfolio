@@ -113,16 +113,16 @@
 </article>
 <article class="web-package is-featured">
 <span class="web-package-kicker">03 / COMPLETE CARE PACKAGE</span>
-<h3>Website + Full Support & Backup</h3>
+<h3>Website + 1-Year Support & Backup</h3>
 <div class="web-package-price">PKR 30,000<small>One-time fee · ongoing support included</small></div>
-<p class="web-package-desc">A complete website with continued support to help keep it maintained and resolve website-related issues.</p>
+<p class="web-package-desc">A complete website delivered live, with one year of website support and backup assistance to help keep it maintained and resolve website-related issues.</p>
 <ul class="web-feature-list">
 <li>Complete website design and coding</li>
 <li>Responsive pages and agreed features</li>
-<li>Ongoing website support</li>
-<li>Backup assistance for website files and data</li>
-<li>Help resolving website errors and issues</li>
-<li>Website updates and agreed changes</li>
+<li>One full year of website support</li>
+<li>One full year of backup support</li>
+<li>Help resolving website errors and issues during the support year</li>
+<li>Agreed website updates during the support year</li>
 </ul>
 <a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%20want%20the%20PKR%2030%2C000%20Complete%20Website%20with%20Full%20Support%20and%20Backup%20package." target="_blank" rel="noopener">Select complete package <span>↗</span></a>
 </article>
