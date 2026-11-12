@@ -32,7 +32,7 @@ $services = [
 <header class="site-header">
 <a class="brand" href="index.php"><span class="brand-mark">H<span>G</span></span><span class="brand-name">HAMMAD<span>GRAPHIC</span></span></a>
 <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-<nav class="main-nav" id="mainNav"><a href="#services">Services</a><a href="#work">Portfolio</a><a href="#meetings">Zoom meeting</a><a href="#about">About</a><a href="#contact">Contact</a><a href="login.php">Customer login</a><a href="register.php">Register</a><a class="nav-order" href="order.php">Start a project <span>↗</span></a></nav>
+<nav class="main-nav" id="mainNav"><a href="#services">Services</a><a href="web-designing/">Web Designing</a><a href="#work">Portfolio</a><a href="#meetings">Zoom meeting</a><a href="#about">About</a><a href="#contact">Contact</a><a href="login.php">Customer login</a><a href="register.php">Register</a><a class="nav-order" href="order.php">Start a project <span>↗</span></a></nav>
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle colour theme"><span class="theme-icon">☼</span></button>
 </header>
 <main>
