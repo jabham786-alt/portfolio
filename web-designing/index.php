@@ -73,7 +73,7 @@
 <div class="web-hero-copy">
 <div class="eyebrow"><span class="eyebrow-line"></span> HAMMAD GRAPHIC / WEB SERVICES</div>
 <h1>Your business<br>deserves a better<br><em>website.</em></h1>
-<p>From a clean website design to a complete coded website, choose the package that matches your goal. Need continued care after launch? The complete package also includes ongoing support and backup assistance.</p>
+<p>From a clean website design to a complete coded website, choose the package that matches your goal. Need continued care after launch? The PKR 30,000 package includes one full year of support and backup assistance.</p>
 <div class="hero-actions"><a class="button button-primary" href="#packages">Explore packages <span>↓</span></a><a class="text-link" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%20want%20to%20discuss%20a%20website%20project." target="_blank" rel="noopener">Ask on WhatsApp <span>↗</span></a></div>
 </div>
 <div class="web-hero-art"><small>DESIGN · DEVELOPMENT · SUPPORT</small><strong>MAKE YOUR<br>ONLINE PRESENCE<br><em>WORK.</em></strong><span>THOUGHTFUL DIGITAL EXPERIENCES BY HAMMAD GRAPHIC</span></div>
@@ -114,7 +114,7 @@
 <article class="web-package is-featured">
 <span class="web-package-kicker">03 / COMPLETE CARE PACKAGE</span>
 <h3>Website + 1-Year Support & Backup</h3>
-<div class="web-package-price">PKR 30,000<small>One-time fee · ongoing support included</small></div>
+<div class="web-package-price">PKR 30,000<small>One-time fee · 1 year of support and backup</small></div>
 <p class="web-package-desc">A complete website delivered live, with one year of website support and backup assistance to help keep it maintained and resolve website-related issues.</p>
 <ul class="web-feature-list">
 <li>Complete website design and coding</li>
