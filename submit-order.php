@@ -3,13 +3,17 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
 if($_SERVER['REQUEST_METHOD']!=='POST')redirect('order.php');
+$allowed=['Brand identity','Social media design','Print & business stationery','YouTube thumbnails','Custom creative design'];
+$requestedService=trim((string)($_POST['service']??''));
 $customer = customer_current();
-if (!$customer) redirect('login.php?next=order.php');
+if (!$customer) {
+    $next = in_array($requestedService,$allowed,true) ? 'order.php?service=' . rawurlencode($requestedService) : 'order.php';
+    redirect('login.php?next=' . rawurlencode(customer_safe_next($next)));
+}
 csrf_check();
 if(!empty($_POST['website'])){flash('order_error','Please leave the hidden website field empty and submit the order form again.');redirect('order.php');}
 if(!empty($_SESSION['last_order_submit'])&&time()-(int)$_SESSION['last_order_submit']<30){flash('order_error','Please wait a moment before sending another request.');redirect('order.php');}
 $name=$customer['full_name'];$email=$customer['email'];$phone=$customer['mobile'];$service=trim((string)($_POST['service']??''));$budget=trim((string)($_POST['budget']??''));$deadline=trim((string)($_POST['deadline']??''));$brief=trim((string)($_POST['brief']??''));
-$allowed=['Brand identity','Social media design','Print & business stationery','YouTube thumbnails','Custom creative design'];
 if(!in_array($service,$allowed,true)||$brief===''||text_length($brief)>5000){flash('order_error','Please check the required fields and try again.');redirect('order.php');}
 if($budget!==''&&text_length($budget)>60){flash('order_error','Please shorten the budget field.');redirect('order.php');}
 if($deadline!==''){$date=DateTime::createFromFormat('Y-m-d',$deadline);if(!$date||$date->format('Y-m-d')!==$deadline||$date<new DateTime('today')){flash('order_error','Please choose a valid future deadline.');redirect('order.php');}}else{$deadline=null;}

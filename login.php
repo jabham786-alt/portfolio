@@ -2,11 +2,9 @@
 declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
-if (customer_current()) redirect('customer/index.php');
 $error = flash('customer_error');
-$next = (string)($_GET['next'] ?? $_POST['next'] ?? 'customer/index.php');
-$allowedNext = ['customer/index.php','customer/orders.php','order.php'];
-if (!in_array($next, $allowedNext, true)) $next = 'customer/index.php';
+$next = customer_safe_next((string)($_GET['next'] ?? $_POST['next'] ?? 'customer/index.php'));
+if (customer_current()) redirect($next);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $identity = trim((string)($_POST['identity'] ?? ''));

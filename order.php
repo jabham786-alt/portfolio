@@ -3,10 +3,13 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/bootstrap.php';
 require_once __DIR__ . '/includes/customer-auth.php';
 $customer = customer_current();
-if (!$customer) redirect('login.php?next=order.php');
 $serviceOptions=['Brand identity','Social media design','Print & business stationery','YouTube thumbnails','Custom creative design'];
 $selectedService=(string)($_GET['service']??'');
 if(!in_array($selectedService,$serviceOptions,true))$selectedService='';
+if (!$customer) {
+    $next = $selectedService !== '' ? 'order.php?service=' . rawurlencode($selectedService) : 'order.php';
+    redirect('login.php?next=' . rawurlencode(customer_safe_next($next)));
+}
 $success=isset($_GET['success'])&&$_GET['success']==='1';
 $reference=preg_replace('/[^A-Z0-9-]/','',(string)($_GET['ref']??''));
 $error=flash('order_error');

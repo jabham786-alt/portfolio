@@ -1,3 +1,20 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/customer-auth.php';
+
+$customer = customer_current();
+$selectedPackage = (string)($_GET['package'] ?? '');
+if (!in_array($selectedPackage, ['design', 'development', 'complete'], true)) $selectedPackage = '';
+
+function web_package_href(?array $customer, string $package, string $message): string {
+    if (!$customer) {
+        return '../login.php?next=' . rawurlencode('web-designing/index.php?package=' . $package);
+    }
+    return whatsapp_url($message);
+}
+$webPackageTarget = $customer ? ' target="_blank" rel="noopener"' : '';
+?>
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
@@ -27,6 +44,7 @@
 .web-section-intro{max-width:560px;color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:42px}
 .web-package-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
 .web-package{background:var(--surface);border:1px solid var(--line);padding:27px;display:flex;flex-direction:column;min-height:510px;position:relative}
+.web-package.is-selected{outline:2px solid var(--accent);outline-offset:3px}
 .web-package.is-featured{border-color:var(--accent);background:linear-gradient(155deg,var(--surface),color-mix(in srgb,var(--accent) 9%,var(--surface)))}
 .web-package-kicker{font:700 9px var(--display);letter-spacing:1.5px;color:var(--accent)}
 .web-package h3{font:600 22px/1.2 var(--display);margin:24px 0 10px}
@@ -82,8 +100,9 @@
 <div class="eyebrow">CLEAR ONE-TIME PACKAGE PRICING</div>
 <h2 class="web-section-title">Choose the right<br><em>level of service.</em></h2>
 <p class="web-section-intro">Each package is designed for a different stage of your business. Select the service you need and contact me to discuss your website requirements.</p>
+<?php if ($selectedPackage !== ''): ?><p class="web-note">Package selected. You are signed in; choose the highlighted package below to continue to WhatsApp.</p><?php elseif (!$customer): ?><p class="web-note">You can view all packages without signing in. To select a package and contact us, please log in first.</p><?php endif; ?>
 <div class="web-package-grid">
-<article class="web-package">
+<article class="web-package<?= $selectedPackage === 'design' ? ' is-selected' : '' ?>">
 <span class="web-package-kicker">01 / DESIGN</span>
 <h3>Website Design</h3>
 <div class="web-package-price">PKR 5,000<small>One-time fee</small></div>
@@ -95,9 +114,9 @@
 <li>Desktop and mobile design concept</li>
 <li>Design presentation for approval</li>
 </ul>
-<a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%20want%20the%20PKR%205%2C000%20Website%20Design%20package." target="_blank" rel="noopener">Select design package <span>↗</span></a>
+<a class="button button-primary" href="<?= e(web_package_href($customer, 'design', 'Hello Hammad, I want the PKR 5,000 Website Design package.')) ?>"<?= $webPackageTarget ?>>Select design package <span>↗</span></a>
 </article>
-<article class="web-package">
+<article class="web-package<?= $selectedPackage === 'development' ? ' is-selected' : '' ?>">
 <span class="web-package-kicker">02 / COMPLETE CODING</span>
 <h3>Full Website Development</h3>
 <div class="web-package-price">PKR 15,000<small>One-time fee</small></div>
@@ -109,9 +128,9 @@
 <li>Navigation and contact functionality</li>
 <li>Testing and website handover</li>
 </ul>
-<a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%20want%20the%20PKR%2015%2C000%20Full%20Website%20Development%20package." target="_blank" rel="noopener">Select development package <span>↗</span></a>
+<a class="button button-primary" href="<?= e(web_package_href($customer, 'development', 'Hello Hammad, I want the PKR 15,000 Full Website Development package.')) ?>"<?= $webPackageTarget ?>>Select development package <span>↗</span></a>
 </article>
-<article class="web-package is-featured">
+<article class="web-package is-featured<?= $selectedPackage === 'complete' ? ' is-selected' : '' ?>">
 <span class="web-package-kicker">03 / COMPLETE CARE PACKAGE</span>
 <h3>Website + 1-Year Support & Backup</h3>
 <div class="web-package-price">PKR 30,000<small>One-time fee · 1 year of support and backup</small></div>
@@ -124,7 +143,7 @@
 <li>Help resolving website errors and issues during the support year</li>
 <li>Agreed website updates during the support year</li>
 </ul>
-<a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%20want%20the%20PKR%2030%2C000%20Complete%20Website%20with%20Full%20Support%20and%20Backup%20package." target="_blank" rel="noopener">Select complete package <span>↗</span></a>
+<a class="button button-primary" href="<?= e(web_package_href($customer, 'complete', 'Hello Hammad, I want the PKR 30,000 Complete Website with Full Support and Backup package.')) ?>"<?= $webPackageTarget ?>>Select complete package <span>↗</span></a>
 </article>
 </div>
 <p class="web-note">All package prices are one-time fees in PKR. Before work begins, the required pages, features, content, delivery plan and support arrangements will be discussed and confirmed with you. Domain registration, hosting charges and paid third-party services are not included unless specifically agreed.</p>

@@ -180,3 +180,23 @@ portfolio/
 | Root PHP files | Public website pages, registration, login, orders and payment flow |
 
 > **Note:** This is the tracked source tree for the branch named above, based on the files currently present in GitHub. Runtime-created customer uploads, database records, and hosting-only files are not listed. The Messenger package is not included in this tree until its files are added to the repository. The live hosting copy may contain additional files or newer changes not yet committed to GitHub.
+
+
+## Integrated application branch: \`integration/futuristic-site-login-gate\`
+
+This integration branch is based on the complete website source in \`feature/web-designing-services-page\`. The approved public homepage, existing visual design, customer registration/approval/activation, customer order form, admin panel, payment foundation, analytics and existing database migrations are retained.
+
+### Login gate behaviour
+- Public visitors can browse the homepage, services, portfolio, web-designing packages and public Design Journal without signing in.
+- Opening the customer order form requires an active customer account.
+- The selected graphic-design service is carried through login and preselected when the customer returns.
+- Selecting a web-designing package requires login; after login the visitor returns to the same highlighted package and can continue to WhatsApp.
+- Login return destinations are restricted to known same-site routes and allow-listed query parameters.
+- The order submission endpoint independently checks the active customer session.
+- New customer registrations still require admin approval and manual WhatsApp activation.
+
+### Design Journal
+The public Design Journal is managed through \`admin/blog.php\`. Before using it, back up the database and run \`migrations/001_create_blog_posts.sql\` once in phpMyAdmin. This is an additive migration that creates only the \`blog_posts\` table.
+
+### Branch integration policy
+This branch joins the histories of the repository's existing branches while keeping \`feature/web-designing-services-page\` as the first-parent source of truth for overlapping website files. Conflicting authentication changes that converted the public homepage into a login gate, and duplicate \`home.php\` customer dashboards that depend on that flow, were intentionally not copied over. Review the branch diff before deploying it. Do not overwrite the live \`includes/config.php\`; keep live hosting credentials and the private INSTALL_KEY only on the server.
