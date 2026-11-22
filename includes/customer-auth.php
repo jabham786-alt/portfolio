@@ -22,7 +22,7 @@ function customer_current(): ?array {
  * per destination so a login link cannot become an open redirect.
  */
 function customer_safe_next(string $candidate, string $default = 'customer/index.php'): string {
-    $allowedPaths = ['customer/index.php', 'order.php', 'web-designing/index.php'];
+    $allowedPaths = ['customer/index.php', 'index.php', 'order.php', 'web-designing/index.php'];
     if (!in_array($default, $allowedPaths, true)) $default = 'customer/index.php';
 
     $candidate = trim($candidate);
@@ -41,6 +41,14 @@ function customer_safe_next(string $candidate, string $default = 'customer/index
 
     $query = [];
     if (isset($parts['query'])) parse_str((string)$parts['query'], $query);
+
+    if ($path === 'index.php') {
+        $package = $query['package'] ?? '';
+        if (!is_string($package)) return 'index.php';
+        return in_array($package, ['ui-ux', 'development', 'complete'], true)
+            ? 'index.php?' . http_build_query(['package' => $package])
+            : 'index.php';
+    }
 
     if ($path === 'order.php') {
         $service = $query['service'] ?? '';

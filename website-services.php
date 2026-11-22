@@ -1,4 +1,18 @@
 <?php
+require_once __DIR__ . '/includes/customer-auth.php';
+$websiteServiceCustomer = customer_current();
+$selectedWebsitePackage = (string)($_GET['package'] ?? '');
+if (!in_array($selectedWebsitePackage, ['ui-ux', 'development', 'complete'], true)) $selectedWebsitePackage = '';
+
+function website_service_package_href(?array $customer, string $package, string $message): string {
+    if (!$customer) {
+        return 'login.php?next=' . rawurlencode('index.php?package=' . $package);
+    }
+    return whatsapp_url($message);
+}
+$websiteServiceTarget = $websiteServiceCustomer ? ' target="_blank" rel="noopener"' : '';
+?>
+<?php
 /*
  * Hammad Graphic — Website Design & Development Services
  * Included by index.php. Keep this file in the website root.
@@ -8,6 +22,7 @@
   <style>
     .hg-web-services .hg-web-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
     .hg-web-services .hg-web-card{position:relative;display:flex;flex-direction:column;min-height:360px;padding:27px;background:var(--surface);border:1px solid var(--line)}
+    .hg-web-services .hg-web-card.is-selected{outline:2px solid var(--accent);outline-offset:3px}
     .hg-web-services .hg-web-card.featured{border-color:var(--accent);background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--accent) 9%,var(--surface)))}
     .hg-web-services .hg-web-tag{font:700 9px var(--display);letter-spacing:1.5px;color:var(--accent)}
     .hg-web-services .hg-web-card h3{font:600 21px var(--display);margin:24px 0 8px}
@@ -26,8 +41,9 @@
     <div><div class="eyebrow">WEBSITE DESIGN & DEVELOPMENT</div><h2>Build your next<br><em>digital home.</em></h2></div>
     <p>From a polished interface to a complete working website, choose the level of service that fits your business.</p>
   </div>
+  <?php if ($selectedWebsitePackage !== '' && $websiteServiceCustomer): ?><p class="hg-web-note">Package selected. You are signed in; choose the highlighted package below to continue to WhatsApp.</p><?php elseif ($selectedWebsitePackage !== ''): ?><p class="hg-web-note">You selected this package. Log in first, then return here to continue with the highlighted package.</p><?php elseif (!$websiteServiceCustomer): ?><p class="hg-web-note">You can view these packages without signing in. To select a package and contact us, please log in first.</p><?php endif; ?>
   <div class="hg-web-grid">
-    <article class="hg-web-card">
+    <article class="hg-web-card<?= $selectedWebsitePackage === 'ui-ux' ? ' is-selected' : '' ?>">
       <span class="hg-web-tag">01 / DESIGN</span>
       <h3>UI / UX Website Design</h3>
       <div class="hg-web-price">PKR 5,000 <small>/ starting price</small></div>
@@ -38,9 +54,9 @@
         <li>Colour, typography and user-flow planning</li>
         <li>Design handoff for development</li>
       </ul>
-      <a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%27m%20interested%20in%20UI%2FUX%20website%20design.">Discuss this service <span>↗</span></a>
+      <a class="button button-primary" href="<?=e(website_service_package_href($websiteServiceCustomer, 'ui-ux', 'Hello Hammad, I am interested in UI/UX website design.')) ?>"<?= $websiteServiceTarget ?>>Discuss this service <span>↗</span></a>
     </article>
-    <article class="hg-web-card">
+    <article class="hg-web-card<?= $selectedWebsitePackage === 'development' ? ' is-selected' : '' ?>">
       <span class="hg-web-tag">02 / DEVELOPMENT</span>
       <h3>Full Website Development</h3>
       <div class="hg-web-price">PKR 15,000 <small>/ starting price</small></div>
@@ -51,9 +67,9 @@
         <li>Contact form and WhatsApp connection</li>
         <li>Basic testing before handover</li>
       </ul>
-      <a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%27m%20interested%20in%20full%20website%20development.">Discuss this service <span>↗</span></a>
+      <a class="button button-primary" href="<?=e(website_service_package_href($websiteServiceCustomer, 'development', 'Hello Hammad, I am interested in full website development.')) ?>"<?= $websiteServiceTarget ?>>Discuss this service <span>↗</span></a>
     </article>
-    <article class="hg-web-card featured">
+    <article class="hg-web-card featured<?= $selectedWebsitePackage === 'complete' ? ' is-selected' : '' ?>">
       <span class="hg-web-tag">03 / COMPLETE PACKAGE + ONGOING SUPPORT</span>
       <h3>Website Design, Development & Support</h3>
       <div class="hg-web-price">PKR 30,000 <small>/ starting price</small></div>
@@ -65,7 +81,7 @@
         <li>Website text, image and layout changes on request</li>
         <li>Help with website issues and updates</li>
       </ul>
-      <a class="button button-primary" href="https://wa.me/923067115462?text=Hello%20Hammad%2C%20I%27m%20interested%20in%20the%20PKR%2030%2C000%20website%20design%2C%20development%20and%20ongoing%20support%20package.">Choose complete package <span>↗</span></a>
+      <a class="button button-primary" href="<?=e(website_service_package_href($websiteServiceCustomer, 'complete', 'Hello Hammad, I am interested in the PKR 30,000 website design, development and ongoing support package.')) ?>"<?= $websiteServiceTarget ?>>Choose complete package <span>↗</span></a>
     </article>
   </div>
   <p class="hg-web-note">All prices are starting prices in PKR. Final quotation depends on the number of pages, required features and project scope. Domain, hosting and paid third-party services or renewals are separate unless agreed in writing.</p>
