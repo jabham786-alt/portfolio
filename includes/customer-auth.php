@@ -43,13 +43,15 @@ function customer_safe_next(string $candidate, string $default = 'customer/index
     if (isset($parts['query'])) parse_str((string)$parts['query'], $query);
 
     if ($path === 'order.php') {
-        $service = (string)($query['service'] ?? '');
+        $service = $query['service'] ?? '';
+        if (!is_string($service)) return 'order.php';
         $services = ['Brand identity', 'Social media design', 'Print & business stationery', 'YouTube thumbnails', 'Custom creative design'];
         return in_array($service, $services, true) ? 'order.php?' . http_build_query(['service' => $service]) : 'order.php';
     }
 
     if ($path === 'web-designing/index.php') {
-        $package = (string)($query['package'] ?? '');
+        $package = $query['package'] ?? '';
+        if (!is_string($package)) return 'web-designing/index.php';
         return in_array($package, ['design', 'development', 'complete'], true)
             ? 'web-designing/index.php?' . http_build_query(['package' => $package])
             : 'web-designing/index.php';

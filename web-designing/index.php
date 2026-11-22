@@ -100,7 +100,7 @@ $webPackageTarget = $customer ? ' target="_blank" rel="noopener"' : '';
 <div class="eyebrow">CLEAR ONE-TIME PACKAGE PRICING</div>
 <h2 class="web-section-title">Choose the right<br><em>level of service.</em></h2>
 <p class="web-section-intro">Each package is designed for a different stage of your business. Select the service you need and contact me to discuss your website requirements.</p>
-<?php if ($selectedPackage !== ''): ?><p class="web-note">Package selected. You are signed in; choose the highlighted package below to continue to WhatsApp.</p><?php elseif (!$customer): ?><p class="web-note">You can view all packages without signing in. To select a package and contact us, please log in first.</p><?php endif; ?>
+<?php if ($selectedPackage !== '' && $customer): ?><p class="web-note">Package selected. You are signed in; choose the highlighted package below to continue to WhatsApp.</p><?php elseif ($selectedPackage !== ''): ?><p class="web-note">You selected this package. Log in first, then return here to continue with the highlighted package.</p><?php elseif (!$customer): ?><p class="web-note">You can view all packages without signing in. To select a package and contact us, please log in first.</p><?php endif; ?>
 <div class="web-package-grid">
 <article class="web-package<?= $selectedPackage === 'design' ? ' is-selected' : '' ?>">
 <span class="web-package-kicker">01 / DESIGN</span>

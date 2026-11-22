@@ -57,9 +57,9 @@ PHP + MySQL agency website for Hammad Ali. Built for simple shared hosting such 
 - Uploaded files are stored under storage/uploads with random names and cannot be opened directly from the public web.
 - Back up the database and customer attachments regularly.
 
-## Customer accounts (feature branch)
+## Customer accounts
 
-The customer account feature is developed on `feature/customer-accounts-payments`; it is not merged into the production branch and has not been deployed to InfinityFree.
+Customer accounts, admin approval and manual WhatsApp activation are included in this integration branch. The original approval and one-time activation flow is preserved.
 
 1. Back up the live website files and database.
 2. Confirm `database/customer-accounts-payments-migration.sql` has been applied once. If not, apply it first.
