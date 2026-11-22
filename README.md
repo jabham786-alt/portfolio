@@ -190,7 +190,7 @@ This integration branch is based on the complete website source in \`feature/web
 - Public visitors can browse the homepage, services, portfolio, web-designing packages and public Design Journal without signing in.
 - Opening the customer order form requires an active customer account.
 - The selected graphic-design service is carried through login and preselected when the customer returns.
-- Selecting a web-designing package requires login; after login the visitor returns to the same highlighted package and can continue to WhatsApp.
+- Selecting a website package on the public homepage or the dedicated web-designing page requires login; after login the visitor returns to the same highlighted package and can continue to WhatsApp.
 - Login return destinations are restricted to known same-site routes and allow-listed query parameters.
 - The order submission endpoint independently checks the active customer session.
 - New customer registrations still require admin approval and manual WhatsApp activation.
