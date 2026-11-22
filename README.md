@@ -1,5 +1,77 @@
-# portfolio
-"Local AI Assistant with Ollama" portfolio website
+# Hammad Graphic — order-taking design agency website
+
+PHP + MySQL agency website for Hammad Ali. Built for simple shared hosting such as InfinityFree. No Node.js, framework runtime or background service is required.
+
+## Included
+
+- Responsive home page with Services, concept Work, About and Contact sections.
+- Dark / light mode saved in the visitor's browser.
+- Order form: customer name, email, WhatsApp, service, estimated budget, deadline, project brief and optional JPG/PNG/WEBP/PDF attachment (4 MB maximum).
+- Server-side validation, prepared SQL statements, CSRF token, honeypot and request throttling.
+- MySQL order records with unique reference numbers.
+- Admin installer, password-hashed sign-in, dashboard, order-status management, private notes and protected attachment downloads.
+- Contact-assistant widget that replies to every submitted message with exactly: **Please contact us on WhatsApp: +923067115462**. It does not use an AI model, send text to a server or store messages. It is a fixed browser-side contact widget, not an AI chatbot.
+
+## Local setup (XAMPP on Windows)
+
+1. Install XAMPP with PHP 8.1+ and MySQL/MariaDB.
+2. Copy this repository into C:\xampp\htdocs\hammad-graphic.
+3. Start Apache and MySQL.
+4. Create a database named hammad_graphic in phpMyAdmin.
+5. Edit includes/config.php:
+   - DB_HOST: localhost
+   - DB_NAME: hammad_graphic
+   - DB_USER: root
+   - DB_PASS: blank only for a default local XAMPP setup
+   - SITE_URL: http://localhost/hammad-graphic
+   - Replace INSTALL_KEY with a random value of 24+ characters.
+6. Open http://localhost/hammad-graphic/admin/setup.php; enter the same install key and create your admin account. Use a unique password of at least 12 characters.
+7. Delete admin/setup.php after the first admin is created.
+8. Test the home page, order form, admin login, status update and attachment download.
+
+## InfinityFree deployment
+
+1. Create an InfinityFree hosting account and add a domain or free subdomain.
+2. In the hosting control panel, open MySQL Databases and create a database. Copy the exact database host, full database name, username and password. The host is not necessarily localhost.
+3. Edit includes/config.php locally and fill in DB_HOST, DB_NAME, DB_USER, DB_PASS. Set SITE_URL to your HTTPS domain when ready. Set a long random INSTALL_KEY.
+4. Upload the contents of this repository to the document-root directory shown for your domain in the InfinityFree Domains page (often htdocs; use the directory listed for your specific domain). Use FTP or File Manager. Keep all folders in their original structure.
+5. Ensure storage/uploads exists and is writable by PHP. Its .htaccess blocks direct public access; admin downloads are served only after sign-in.
+6. Visit https://YOUR-DOMAIN/admin/setup.php once and create your private admin account.
+7. Immediately delete admin/setup.php from the live hosting account using FTP/File Manager.
+8. Enable SSL / HTTPS in the hosting panel. Test the public website and /admin/login.php over HTTPS.
+9. Place a test order and confirm it appears in the admin dashboard. Change its status, add a private note and test an attachment download before advertising the website.
+
+## Important hosting limitations
+
+- InfinityFree currently advertises PHP 8.4 and MySQL 8.0 / MariaDB 11.4 on its free hosting, but hosting quotas and policy still apply.
+- Do not rely on PHP mail() for notifications on InfinityFree free hosting. New orders are saved to the database and appear in the admin panel. External SMTP can be added later; keep SMTP credentials private and do not commit them to GitHub.
+- The contact assistant is browser-side and only displays the fixed WhatsApp instruction. It is not a server-hosted live chat script or generative AI bot.
+- The three visible Work tiles are labelled concept compositions, not claimed client projects. Replace them with your own approved design images before presenting them as completed client commissions.
+- Free shared hosting cannot guarantee zero downtime or production-grade business service. Run the complete test checklist on your actual hosting account before using the site for customer orders.
+
+## Security
+
+- Never commit actual database credentials, API keys, or SMTP passwords.
+- Delete admin/setup.php after first-time installation.
+- Use HTTPS and a unique strong admin password.
+- Uploaded files are stored under storage/uploads with random names and cannot be opened directly from the public web.
+- Back up the database and customer attachments regularly.
+
+## Customer accounts
+
+Customer accounts, admin approval and manual WhatsApp activation are included in this integration branch. The original approval and one-time activation flow is preserved.
+
+1. Back up the live website files and database.
+2. Confirm `database/customer-accounts-payments-migration.sql` has been applied once. If not, apply it first.
+3. Run `database/customer-manual-approval-migration.sql` once in phpMyAdmin. It changes new registrations to admin approval and creates the one-time activation token table. Do not rerun it after successful completion.
+4. Upload the branch's changed/new PHP files to their matching paths. Do not overwrite the live `includes/config.php`; preserve the live database credentials and INSTALL_KEY.
+5. Set the live `SITE_URL` constant in `includes/config.php` to the canonical HTTPS domain.
+6. Customers register at `/register.php`; they remain pending until admin approval.
+7. Admin signs in at `/admin/login.php` and manages approvals at `/admin/customers.php`. Approving creates a one-use link valid for 48 hours. The admin manually sends it via WhatsApp; no API or automatic sending is used.
+8. Customer activates at `/activate-account.php`, then signs in at `/login.php` and uses `/customer/index.php`.
+9. Existing active accounts remain active. Existing historical orders remain unassigned unless safely linked after verifying ownership.
+
+Payment integration remains a separate foundation. Do not mark a payment paid from a browser redirect or screenshot. InfinityFree Free Hosting blocks inbound third-party webhook callbacks; verified payment confirmation needs a trusted webhook relay or webhook-capable payment endpoint.
 
 
 ## Project File Structure
@@ -108,3 +180,23 @@ portfolio/
 | Root PHP files | Public website pages, registration, login, orders and payment flow |
 
 > **Note:** This is the tracked source tree for the branch named above, based on the files currently present in GitHub. Runtime-created customer uploads, database records, and hosting-only files are not listed. The Messenger package is not included in this tree until its files are added to the repository. The live hosting copy may contain additional files or newer changes not yet committed to GitHub.
+
+
+## Integrated application branch: \`integration/futuristic-site-login-gate\`
+
+This integration branch is based on the complete website source in \`feature/web-designing-services-page\`. The approved public homepage, existing visual design, customer registration/approval/activation, customer order form, admin panel, payment foundation, analytics and existing database migrations are retained.
+
+### Login gate behaviour
+- Public visitors can browse the homepage, services, portfolio, web-designing packages and public Design Journal without signing in.
+- Opening the customer order form requires an active customer account.
+- The selected graphic-design service is carried through login and preselected when the customer returns.
+- Selecting a website package on the public homepage or the dedicated web-designing page requires login; after login the visitor returns to the same highlighted package and can continue to WhatsApp.
+- Login return destinations are restricted to known same-site routes and allow-listed query parameters.
+- The order submission endpoint independently checks the active customer session.
+- New customer registrations still require admin approval and manual WhatsApp activation.
+
+### Design Journal
+The public Design Journal is managed through \`admin/blog.php\`. Before using it, back up the database and run \`migrations/001_create_blog_posts.sql\` once in phpMyAdmin. This is an additive migration that creates only the \`blog_posts\` table.
+
+### Branch integration policy
+This branch joins the histories of the repository's existing branches while keeping \`feature/web-designing-services-page\` as the first-parent source of truth for overlapping website files. Conflicting authentication changes that converted the public homepage into a login gate, and duplicate \`home.php\` customer dashboards that depend on that flow, were intentionally not copied over. Review the branch diff before deploying it. Do not overwrite the live \`includes/config.php\`; keep live hosting credentials and the private INSTALL_KEY only on the server.
