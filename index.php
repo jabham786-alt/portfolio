@@ -15,6 +15,9 @@ $services = [
  ['03','Print & business stationery','Business cards, flyers, posters, brochures and print-ready layouts.'],
  ['04','YouTube thumbnails','Clear, bold thumbnail concepts designed to earn attention.'],
  ['05','Custom creative design','One-off graphics and tailored visual assets for your next idea.'],
+ ['06','PHP backend development','Custom PHP functionality, secure form handling, login and registration workflows, and server-side features.'],
+ ['07','MySQL database development','Database connection, schema planning, CRUD operations, and structured data management.'],
+ ['08','Admin panels & dashboards','Practical admin dashboards for managing customers, orders, content, and website data.'],
 ];
 ?>
 <!doctype html>
@@ -22,7 +25,7 @@ $services = [
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101018">
-<meta name="description" content="Hammad Graphic — creative graphic design for brands, social media and businesses. Request a custom design quote.">
+<meta name="description" content="Hammad Graphic by Hammad Ali — graphic design, PHP backend development, MySQL databases and custom admin dashboards in Pakistan.">
 <title>Hammad Graphic — Design with a point of view</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +41,7 @@ $services = [
 <main>
 <section class="hero section-wrap">
 <div class="hero-copy">
-<div class="eyebrow"><span class="eyebrow-line"></span> INDEPENDENT GRAPHIC DESIGN STUDIO</div>
+<div class="eyebrow"><span class="eyebrow-line"></span> CREATIVE DESIGN & WEB DEVELOPMENT STUDIO</div>
 <h1><?= nl2br(e($heroHeading)) ?></h1>
 <p class="hero-lead"><?= e($heroText) ?></p>
 <div class="hero-actions"><a class="button button-primary" href="order.php">Start a project <span>↗</span></a><a class="text-link" href="#work">Explore selected work <span>↓</span></a></div>
@@ -51,9 +54,9 @@ $services = [
 <div class="art-sticker">DESIGN<br>WITH<br>INTENT <span>✳</span></div><div class="art-caption">A LITTLE DIFFERENT<br>BY DESIGN.</div>
 </div>
 </section>
-<section class="ticker"><div class="ticker-track"><span>BRAND IDENTITY ✳ SOCIAL MEDIA ✳ PRINT DESIGN ✳ THUMBNAILS ✳ CREATIVE DIRECTION ✳ </span><span aria-hidden="true">BRAND IDENTITY ✳ SOCIAL MEDIA ✳ PRINT DESIGN ✳ THUMBNAILS ✳ CREATIVE DIRECTION ✳ </span></div></section>
+<section class="ticker"><div class="ticker-track"><span>BRAND IDENTITY ✳ SOCIAL MEDIA ✳ PRINT DESIGN ✳ PHP BACKEND ✳ MYSQL DATABASES ✳ ADMIN DASHBOARDS ✳ </span><span aria-hidden="true">BRAND IDENTITY ✳ SOCIAL MEDIA ✳ PRINT DESIGN ✳ PHP BACKEND ✳ MYSQL DATABASES ✳ ADMIN DASHBOARDS ✳ </span></div></section>
 <section class="section-wrap section-block" id="services">
-<div class="section-heading"><div><div class="eyebrow">WHAT I CAN CREATE</div><h2>Design that works<br><em>as hard as you do.</em></h2></div><p>From the first sketch to the final export, every detail has a job. Choose a service or tell me what you have in mind.</p></div>
+<div class="section-heading"><div><div class="eyebrow">DESIGN & DEVELOPMENT SERVICES</div><h2>Creative ideas.<br><em>Working solutions.</em></h2></div><p>From distinctive brand visuals to functional PHP and MySQL-powered websites, choose a service or tell me what you need built.</p></div>
 <div class="services-grid"><?php foreach ($services as $service): ?><article class="service-card"><div class="service-number"><?= e($service[0]) ?></div><div class="service-arrow">↗</div><h3><?= e($service[1]) ?></h3><p><?= e($service[2]) ?></p><a href="order.php?service=<?= rawurlencode($service[1]) ?>" class="card-link">Request this service <span>→</span></a></article><?php endforeach; ?></div>
 </section>
 <section class="work-section" id="work"><div class="section-wrap section-block">
@@ -72,11 +75,11 @@ $services = [
 <section class="meeting-band" id="meetings"><div class="section-wrap meeting-inner"><div><div class="eyebrow">LET’S DISCUSS YOUR BRIEF</div><h2>Need a project<br><em>consultation?</em></h2><p>Want to explain your idea, review design references or discuss a project face to face? Send a Zoom meeting request with your preferred time.</p><a class="button button-primary" href="zoom-meeting.php">Request a Zoom meeting <span>↗</span></a></div><div class="meeting-card"><div class="meeting-icon">↗</div><strong>ZOOM PROJECT CALL</strong><span>Request a time · Get confirmation · Receive your private meeting link</span><small>Meetings are confirmed manually after review.</small></div></div></section>
 <section class="section-wrap about-section section-block" id="about">
 <div class="about-visual"><img class="about-owner-photo" src="<?= e($portrait) ?>" alt="Hammad Ali — Graphic Designer"><div class="about-monogram">H<span>G</span></div><div class="about-note">GOOD IDEAS<br>DESERVE<br>GOOD DESIGN.</div><div class="about-orbit"></div></div>
-<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro"><?= e($aboutText) ?></p><p>Whether you need a new identity, a social media set or a single standout graphic, tell me what you’re building and we can shape the right direction together.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>Print design</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
+<div class="about-copy"><div class="eyebrow">A LITTLE ABOUT THE DESIGNER</div><h2>Hello, I’m<br><em>Hammad Ali.</em></h2><p class="about-intro"><?= e($aboutText) ?></p><p>Alongside graphic design, I build practical website features using PHP and MySQL, including customer login and registration, OTP workflows, database-driven order handling and admin dashboards. My hands-on development experience comes from building and improving my own working website projects.</p><div class="skill-tags"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Social media design</span><span>Brand visuals</span><span>PHP</span><span>MySQL</span><span>Admin dashboards</span><span>Login & OTP systems</span><span>Database integration</span></div><a href="order.php" class="text-link">Tell me about your project <span>↗</span></a></div>
 </section>
 <section class="contact-band" id="contact"><div class="section-wrap contact-inner"><div><div class="eyebrow">HAVE SOMETHING IN MIND?</div><h2>Let’s make it<br><em>happen.</em></h2></div><div class="contact-side"><p>Share a little about your idea. I’ll review the brief and follow up to discuss the next step.</p><a class="button button-light" href="order.php">Request a design order <span>↗</span></a><a class="contact-email" href="mailto:<?= e($contactEmail) ?>"><?= e($contactEmail)</a></div></div></section>
 </main>
-<footer class="site-footer"><div class="footer-top"><a class="brand" href="index.php"><span class="brand-mark">H<span>G</span></span><span class="brand-name">HAMMAD<span>GRAPHIC</span></span></a><span>Independent design studio · Pakistan</span><a href="<?= e(whatsapp_url('Hello Hammad, I would like to discuss a design project.')) ?>" target="_blank" rel="noopener">WhatsApp ↗</a></div><div class="footer-bottom"><span>© <?= date('Y') ?> Hammad Graphic. All rights reserved.</span><span>Made with intention.</span><a href="web-designing/">Web Designing Services</a><a href="admin/login.php">Admin</a></div></footer>
+<footer class="site-footer"><div class="footer-top"><a class="brand" href="index.php"><span class="brand-mark">H<span>G</span></span><span class="brand-name">HAMMAD<span>GRAPHIC</span></span></a><span>Creative design & web development · Pakistan</span><a href="<?= e(whatsapp_url('Hello Hammad, I would like to discuss a design project.')) ?>" target="_blank" rel="noopener">WhatsApp ↗</a></div><div class="footer-bottom"><span>© <?= date('Y') ?> Hammad Graphic. All rights reserved.</span><span>Made with intention.</span><a href="web-designing/">Web Designing Services</a><a href="admin/login.php">Admin</a></div></footer>
 <div class="contact-widget" id="contactWidget">
 <section class="contact-panel" id="contactPanel" aria-label="WhatsApp contact assistant" hidden>
 <div class="contact-panel-head"><div class="bot-avatar">HG</div><div><strong>Hammad Graphic</strong><span>WhatsApp contact assistant</span></div><button type="button" class="panel-close" id="panelClose" aria-label="Close contact panel">×</button></div>
